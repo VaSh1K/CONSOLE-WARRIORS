@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace game_in_cons
 {
-    class PlayerV
+    public class PlayerV
     {
         public string name { get; set; }
         public string Clas1 { get; set; }
@@ -16,6 +16,8 @@ namespace game_in_cons
         public int MP { get; set; }
         public int Str { get; set; }
         public int Dex { get; set; }
+        public Inventory Inventory { get; set; }
+        
         public PlayerV(string clas1, string Name, int hp, int mp, int str, int dex)
         {
             name = Name;
@@ -24,10 +26,12 @@ namespace game_in_cons
             MP = mp;
             Str = str;
             Dex = dex;
+            Inventory = new Inventory();
+            
 
         }
     }
-    class PlayerM
+    public class PlayerM
     {
         public string name { get; set; }
         public string Clas2 { get; set; }
@@ -35,6 +39,8 @@ namespace game_in_cons
         public int MP { get; set; }
         public int Str { get; set; }
         public int Dex { get; set; }
+        public Inventory Inventory { get; set; }
+      
         public PlayerM(string clas2, string Name, int hp, int mp, int str, int dex)
         {
             name = Name;
@@ -43,11 +49,13 @@ namespace game_in_cons
             MP = mp;
             Str = str;
             Dex = dex;
+            Inventory = new Inventory();
+            
 
         }
 
     }
-    class PlayerA
+    public class PlayerA
     {
         public string name { get; set; }
         public string Clas3 { get; set; }
@@ -55,6 +63,8 @@ namespace game_in_cons
         public int MP { get; set; }
         public int Str { get; set; }
         public int Dex { get; set; }
+        public Inventory Inventory { get; set; }
+        
         public PlayerA(string clas3, string Name, int hp, int mp, int str, int dex)
         {
             name = Name;
@@ -63,51 +73,69 @@ namespace game_in_cons
             MP = mp;
             Str = str;
             Dex = dex;
+            Inventory = new Inventory();
+            
 
         }
     }
-    class Weapon
+    public class Weapon
     {
         public string NeWeapon { get; set; }
         public int dmg { get; set; }
         public int MnCost { get; set; }
-
+        public bool IsEquipped { get; set; }
 
         public Weapon(string neWeapon, int Dmg, int mnCost)
         {
             NeWeapon = neWeapon;
             dmg = Dmg;
             MnCost = mnCost;
+            IsEquipped = false;
         }
 
     }
-    class inventory
+    
+    
+    public class Inventory
     {
-        private static string[] _inventory = new string[] { };
+        private List<Weapon> items;
 
-        public string size1 { get; set; }
-        public string size2 { get; set; }
-        public string size3 { get; set; }
-        public string size4 { get; set; }
-        public string size5 { get; set; }
-
-        public inventory(string Size1, string Size2, string Size3, string Size4 , string Size5)
+        public Inventory()
         {
-            size1 = Size1;
-            size2 = Size2;
-            size3 = Size3;
-            size4 = Size4;
-            size5 = Size5;
+            items = new List<Weapon>();
+        }
+
+        public void AddItem(Weapon weapon)
+        {
+            items.Add(weapon);
+        }
+
+        public void ShowInventory()
+        {
+            Console.WriteLine("Ваш инвентарь:");
+            for (int i = 0; i < items.Count; i++)
+            {
+                Console.WriteLine($"{i + 1} - {items[i].NeWeapon}");
+            }
+        }
+
+        public Weapon GetEquippedWeapon()
+        {
+            return items.FirstOrDefault(item => item.IsEquipped);
         }
     }
-    class Enemy
+    public class Enemy
     {
         public int HP { get; set; }
-        public int edmg { get; set; }
-        public Enemy(int hp, int Edmg)
+        public int DMG { get; set; }
+        public string Name { get; set; }
+
+        public Enemy(string name ,int hP, int dMG)
         {
-            HP = hp;
-            edmg = Edmg;
+            Name = name;
+            HP = hP;
+            DMG = dMG;
         }
     }
+    
 }
